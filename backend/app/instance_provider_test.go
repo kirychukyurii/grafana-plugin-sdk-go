@@ -19,7 +19,7 @@ func TestInstanceProvider(t *testing.T) {
 	type testInstance struct {
 		value string
 	}
-	ip := NewInstanceProvider(func(ctx context.Context, settings backend.AppInstanceSettings) (instancemgmt.Instance, error) {
+	ip := NewInstanceProvider(func(ctx context.Context, settings backend.AppInstanceSettings, orgID int64, grafanaCfg backend.GrafanaCfg) (instancemgmt.Instance, error) {
 		return testInstance{value: "what an app"}, nil
 	})
 
