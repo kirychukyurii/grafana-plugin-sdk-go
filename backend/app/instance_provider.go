@@ -11,7 +11,7 @@ import (
 )
 
 // InstanceFactoryFunc factory method for creating app instances.
-type InstanceFactoryFunc func(ctx context.Context, settings backend.AppInstanceSettings) (instancemgmt.Instance, error)
+type InstanceFactoryFunc func(ctx context.Context, settings backend.AppInstanceSettings, orgID int64, grafanaCfg backend.GrafanaCfg) (instancemgmt.Instance, error)
 
 // NewInstanceManager creates a new app instance manager,
 //
@@ -71,5 +71,5 @@ func (ip *instanceProvider) NeedsUpdate(_ context.Context, pluginContext backend
 }
 
 func (ip *instanceProvider) NewInstance(ctx context.Context, pluginContext backend.PluginContext) (instancemgmt.Instance, error) {
-	return ip.factory(ctx, *pluginContext.AppInstanceSettings)
+	return ip.factory(ctx, *pluginContext.AppInstanceSettings, pluginContext.OrgID, *pluginContext.GrafanaConfig)
 }
